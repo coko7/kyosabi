@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Decrypt — KyoSabi{% endblock %}
+
+{% block content %}
+<h1>Decrypt a shared paste</h1>
+<div id="decrypt-app" data-fetch-url="/decrypt/fetch?url={{ url|urlencode }}">
+  <form id="decrypt-form">
+    <div class="field">
+      <label for="decrypt-password">Password</label>
+      <input type="password" id="decrypt-password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit">Decrypt</button>
+  </form>
+  <div id="decrypt-result"></div>
+</div>
+{% endblock %}

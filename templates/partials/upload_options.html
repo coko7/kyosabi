@@ -1,0 +1,33 @@
+<div class="field">
+  <label for="expire">Expiry</label>
+  <select id="expire" name="expire">
+    <option value="">Never</option>
+    <option value="10min">10 minutes</option>
+    <option value="1hour">1 hour</option>
+    <option value="1day">1 day</option>
+    <option value="1week">1 week</option>
+    <option value="1month">1 month</option>
+  </select>
+</div>
+
+<div class="field field-checkbox">
+  <label>
+    <input type="checkbox" name="oneshot" value="true">
+    One-shot (delete after first view)
+  </label>
+</div>
+
+<div class="field field-checkbox">
+  <label>
+    <input type="checkbox" id="encrypt-toggle" name="encrypt" value="true">
+    Password-protect (encrypted in your browser; the server never sees the password or plaintext)
+  </label>
+</div>
+
+<div class="field encrypt-fields" hidden>
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" autocomplete="new-password">
+  <label for="password-confirm">Confirm password</label>
+  <input type="password" id="password-confirm" name="password-confirm" autocomplete="new-password">
+  <p class="hint">Share the password with the recipient over a different channel than the link.</p>
+</div>

@@ -1,0 +1,44 @@
+services:
+  rustypaste:
+    image: ghcr.io/orhun/rustypaste:latest
+    restart: unless-stopped
+    volumes:
+      - rustypaste-data:/app/upload
+      - ./rustypaste-config.toml:/app/config.toml:ro
+    networks: [internal]
+    # No published ports — only reachable from kyosabi over the internal network.
+
+  kyosabi:
+    build: .
+    restart: unless-stopped
+    environment:
+      OIDC_ISSUER_URL: "https://your-idp.example.com"
+      OIDC_CLIENT_ID: "kyosabi"
+      OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET:?set in .env}"
+      OIDC_REDIRECT_URI: "https://paste.example.com/auth/callback"
+      OIDC_GROUPS_CLAIM: "groups"
+      SESSION_SECRET: "${SESSION_SECRET:?set in .env}"
+      RUSTYPASTE_INTERNAL_URL: "http://rustypaste:8000"
+      RUSTYPASTE_PUBLIC_URL: "https://paste.example.com"
+      RUSTYPASTE_TOKEN_READONLY: "${RUSTYPASTE_TOKEN_READONLY:?set in .env}"
+      RUSTYPASTE_TOKEN_ADMIN: "${RUSTYPASTE_TOKEN_ADMIN:?set in .env}"
+      APP_BASE_URL: "https://paste.example.com"
+      APP_PORT: "3000"
+      DATABASE_PATH: "/data/app.db"
+      TOKEN_BINDINGS_PATH: "/app/token-bindings.yaml"
+      PBKDF2_ITERATIONS: "310000"
+    volumes:
+      - kyosabi-data:/data
+      - ./token-bindings.yaml:/app/token-bindings.yaml:ro
+    depends_on: [rustypaste]
+    networks: [internal, public]
+    ports:
+      - "3000:3000"
+
+networks:
+  internal:
+  public:
+
+volumes:
+  rustypaste-data:
+  kyosabi-data:

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Token bindings — KyoSabi{% endblock %}
+
+{% block content %}
+<h1>Token bindings</h1>
+<p class="hint">Read-only view of the token-bindings.yaml loaded at startup. Token values are never shown.</p>
+<table class="upload-table">
+  <thead>
+    <tr><th>Token ID</th><th>Matched groups</th><th>Permissions</th></tr>
+  </thead>
+  <tbody>
+    {% for binding in bindings %}
+    <tr>
+      <td>{{ binding.token_id }}</td>
+      <td>{{ binding.groups.join(", ") }}</td>
+      <td>{{ binding.permissions.join(", ") }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

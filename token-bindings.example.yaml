@@ -1,0 +1,29 @@
+# Maps OIDC groups to rustypaste bearer tokens.
+#
+# `env_var` names the environment variable (set on the kyosabi container) that
+# holds the actual secret value. Secrets are never written to this file.
+#
+# `permissions` only controls what kyosabi's own UI/proxy will attempt on the
+# user's behalf — it is a soft boundary. Real enforcement (especially `delete`)
+# depends on how the *same* token value is configured in rustypaste's own
+# `auth_tokens` / `delete_tokens`. See kyosabi.md §7.2.
+tokens:
+  - id: readonly
+    env_var: RUSTYPASTE_TOKEN_READONLY
+    permissions: [upload, paste, shorten, view]
+  - id: admin
+    env_var: RUSTYPASTE_TOKEN_ADMIN
+    permissions: [upload, paste, shorten, view, delete]
+
+# Evaluated top to bottom; the first `match` whose `groups` overlaps the
+# user's OIDC groups wins. `default` is a terminal fallback — use a token id
+# to let unmatched authenticated users through with that binding, or `deny`
+# to reject them.
+bindings:
+  - match:
+      groups: ["pastebin-admins"]
+    token_id: admin
+  - match:
+      groups: ["pastebin-users"]
+    token_id: readonly
+  - default: deny

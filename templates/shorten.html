@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Shorten — KyoSabi{% endblock %}
+
+{% block content %}
+<h1>Shorten a URL</h1>
+<form id="shorten-form"
+      hx-post="/api/shorten"
+      hx-encoding="multipart/form-data"
+      hx-target="#result"
+      hx-swap="innerHTML">
+  <div class="field">
+    <label for="url">URL to shorten</label>
+    <input type="url" id="url" name="url" placeholder="https://example.com/some/long/url" required>
+  </div>
+
+  {% include "partials/upload_options.html" %}
+
+  <button type="submit">Shorten</button>
+</form>
+<div id="result"></div>
+{% endblock %}

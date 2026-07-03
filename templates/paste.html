@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Paste — KyoSabi{% endblock %}
+
+{% block content %}
+<h1>Paste text</h1>
+<form id="paste-form"
+      hx-post="/api/paste"
+      hx-encoding="multipart/form-data"
+      hx-target="#result"
+      hx-swap="innerHTML">
+  <div class="field">
+    <label for="filename">Filename</label>
+    <input type="text" id="filename" name="filename" placeholder="e.g. notes.txt" required>
+  </div>
+
+  <div class="field">
+    <label for="content">Content</label>
+    <textarea id="content" name="content" rows="16" required></textarea>
+  </div>
+
+  {% include "partials/upload_options.html" %}
+
+  <button type="submit">Paste</button>
+</form>
+<div id="result"></div>
+{% endblock %}

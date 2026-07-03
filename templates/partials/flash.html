@@ -1,0 +1,9 @@
+<div class="flash {% if ok %}flash-ok{% else %}flash-error{% endif %}">
+  <p>{{ message }}</p>
+  {% if let Some(url) = url %}
+  <div class="flash-url">
+    <input type="text" readonly value="{{ url }}" onclick="this.select()">
+    <button type="button" class="copy-btn" data-copy="{{ url }}">Copy</button>
+  </div>
+  {% endif %}
+</div>

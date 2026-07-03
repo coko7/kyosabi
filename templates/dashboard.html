@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — KyoSabi{% endblock %}
+
+{% block content %}
+<h1>Your pastes</h1>
+<table class="upload-table">
+  <thead>
+    <tr><th>Name</th><th>URL</th><th>Kind</th><th>Created</th><th></th></tr>
+  </thead>
+  <tbody id="upload-rows">
+    {% include "partials/paste_row.html" %}
+  </tbody>
+</table>
+{% include "partials/load_more.html" %}
+{% endblock %}

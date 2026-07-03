@@ -1,0 +1,18 @@
+{% for row in rows %}
+<tr id="upload-{{ row.id }}">
+  <td>{{ row.display_name }}{% if row.encrypted %} <span class="badge">encrypted</span>{% endif %}</td>
+  <td><a href="{{ row.paste_url }}" target="_blank" rel="noopener">{{ row.paste_url }}</a></td>
+  <td>{{ row.kind }}</td>
+  <td>{{ row.created_at_display }}</td>
+  <td>
+    <button type="button" class="copy-btn" data-copy="{{ row.paste_url }}">Copy</button>
+    {% if can_delete %}
+    <button type="button"
+            hx-delete="/api/pastes/{{ row.id }}"
+            hx-target="#upload-{{ row.id }}"
+            hx-swap="outerHTML"
+            hx-confirm="Delete this paste?">Delete</button>
+    {% endif %}
+  </td>
+</tr>
+{% endfor %}
