@@ -1,9 +1,18 @@
-# 🔐 KyoSabi 共錆
+# ☀️ KyoSabi
 
-A web GUI for [rustypaste](https://github.com/orhun/rustypaste) that adds OIDC
-SSO, per-group token mapping, and optional client-side (WebCrypto) password
-encryption — without modifying rustypaste itself. Single Rust binary: Axum +
-Askama + HTMX + SQLite. Full design: [`kyosabi.md`](./kyosabi.md).
+<img width="1280" height="640" alt="kyosabi" src="https://github.com/user-attachments/assets/f5f0fb0d-ba39-48fc-b35e-43f9f672bc01" />
+
+**KyoSabi** is a web GUI frontend for [rustypaste](https://github.com/orhun/rustypaste).
+
+On top of providing a GUI, it comes with some additional features:
+
+- 🔐 [OpenID Connect](https://openid.net/developers/how-connect-works/) Single sign-on (tested against [Zitadel](https://zitadel.com/))
+- 🗂️ Per-group token mapping
+- 🔒 Optional client-side ([WebCrypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)) password encryption
+
+All built with a ***based*** technical stack: [axum](https://github.com/tokio-rs/axum) + [Askama](https://github.com/askama-rs/askama) + [HTMX](https://htmx.org/) + [SQLite](https://sqlite.org)
+
+This project has been **vibe-scaffolded** with [Claude](https://claude.ai), you can find the full design here: [`kyosabi.md`](./kyosabi.md)
 
 ## Running with Docker Compose (recommended)
 
