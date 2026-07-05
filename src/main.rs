@@ -34,7 +34,7 @@ async fn main() -> anyhow::Result<()> {
         .init();
 
     let config = config::AppConfig::from_env()?;
-    tracing::info!(?config, "starting kyosabi");
+    tracing::info!(?config, "starting watari");
 
     let db = db::connect(&config.database_path).await?;
 
@@ -60,7 +60,7 @@ async fn main() -> anyhow::Result<()> {
     .await?;
 
     // cookie 0.18's `Key::from` needs exactly/at-least 64 bytes; our SESSION_SECRET
-    // is only required to be 32+ bytes (kyosabi.md §5), so expand it deterministically.
+    // is only required to be 32+ bytes (watari.md §5), so expand it deterministically.
     let cookie_key = Key::from(&Sha512::digest(&config.session_secret));
     let csrf_config = CsrfConfig::default().with_key(Some(cookie_key.clone()));
 

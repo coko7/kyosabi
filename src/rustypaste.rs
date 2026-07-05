@@ -2,7 +2,7 @@ use reqwest::multipart::{Form, Part};
 
 /// Thin client for rustypaste's real HTTP API, confirmed against its source
 /// (github.com/orhun/rustypaste: src/{auth,header,paste,server}.rs) rather than
-/// guessed from kyosabi.md §14's open question:
+/// guessed from watari.md §14's open question:
 ///
 /// - `POST /` multipart, distinguished by field *name*: `file` (upload),
 ///   `oneshot` (one-shot file), `url` (shorten), `oneshot_url` (one-shot URL).

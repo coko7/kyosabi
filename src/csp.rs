@@ -5,7 +5,7 @@ use axum::response::Response;
 
 /// All dynamic behavior is external (`/static/app.js`) or driven by HTMX's
 /// `hx-headers` body attribute — no inline `<script>`/`<style>` blocks exist
-/// in any template, so a static policy (no nonce) is enough (kyosabi.md §12).
+/// in any template, so a static policy (no nonce) is enough (watari.md §12).
 const CSP: &str = "default-src 'self'; \
     script-src 'self'; \
     style-src 'self'; \

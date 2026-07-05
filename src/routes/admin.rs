@@ -17,7 +17,7 @@ struct AdminTokensTemplate {
 }
 
 /// `GET /admin/tokens` — accessible only to sessions whose resolved token
-/// binding is admin (kyosabi.md §8.3); we key "admin" off having the `delete`
+/// binding is admin (watari.md §8.3); we key "admin" off having the `delete`
 /// permission, since the spec doesn't define it more precisely than that.
 pub async fn tokens_page(
     State(state): State<AppState>,

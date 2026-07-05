@@ -4,7 +4,7 @@ CREATE TABLE sessions (
     email                       TEXT NOT NULL,
     groups                      TEXT NOT NULL,      -- JSON array
     token_id                    TEXT NOT NULL,      -- resolved at login, cached
-    -- Not in the original spec's schema sketch (kyosabi.md §6.4), but required to
+    -- Not in the original spec's schema sketch (watari.md §6.4), but required to
     -- actually implement the silent refresh described in §6.6.
     oidc_refresh_token           TEXT,
     oidc_access_token_expires_at INTEGER,

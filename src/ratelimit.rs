@@ -6,7 +6,7 @@ use tower_governor::GovernorLayer;
 use tower_governor::governor::GovernorConfigBuilder;
 use tower_governor::key_extractor::PeerIpKeyExtractor;
 
-/// kyosabi.md §12 names which routes need rate limiting (`/auth/callback`,
+/// watari.md §12 names which routes need rate limiting (`/auth/callback`,
 /// `POST /api/upload`, `/api/paste`, `/api/shorten`) but not exact quotas —
 /// these are reasonable defaults, keyed on peer IP (not spoofable headers).
 type Governor = GovernorLayer<PeerIpKeyExtractor, NoOpMiddleware, Body>;

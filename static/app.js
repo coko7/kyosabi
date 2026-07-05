@@ -1,5 +1,5 @@
-// KyoSabi client-side behavior. Non-crypto UI glue uses HTMX; password
-// encryption (kyosabi.md §9) is native fetch() because htmx's
+// Watari client-side behavior. Non-crypto UI glue uses HTMX; password
+// encryption (watari.md §9) is native fetch() because htmx's
 // `htmx:configRequest` event isn't awaitable and WebCrypto is async.
 
 const RPEN_MAGIC = new Uint8Array([0x52, 0x50, 0x45, 0x4e]);
@@ -50,7 +50,7 @@ async function encryptEnvelope(password, plaintext, iterations) {
 
 async function decryptEnvelope(password, envelope) {
   if (envelope.length < 33 || !RPEN_MAGIC.every((b, i) => envelope[i] === b)) {
-    throw new Error("not a KyoSabi encrypted payload");
+    throw new Error("not a Watari encrypted payload");
   }
   const version = envelope[4];
   if (version !== RPEN_VERSION) {
@@ -202,7 +202,7 @@ document.addEventListener("submit", async (e) => {
   } catch {
     if (resultEl) {
       resultEl.innerHTML =
-        '<div class="flash flash-error"><p>Decryption failed: wrong password, or this isn\'t a KyoSabi encrypted link.</p></div>';
+        '<div class="flash flash-error"><p>Decryption failed: wrong password, or this isn\'t a Watari encrypted link.</p></div>';
     }
   }
 });

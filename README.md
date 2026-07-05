@@ -1,16 +1,14 @@
-# ☀️ KyoSabi
+# ☀️ Watari
 
-**KyoSabi** is a web GUI frontend for [rustypaste](https://github.com/orhun/rustypaste).
+**Watari** is a web GUI frontend for [rustypaste](https://github.com/orhun/rustypaste).
 
-Its name originates from the concatenation of **共有** (`kyōyū` -> share) and **錆** (`sabi` -> rust).
-
-<img width="1280" height="640" alt="kyosabi" src="https://github.com/user-attachments/assets/f5f0fb0d-ba39-48fc-b35e-43f9f672bc01" />
+<img width="1280" height="640" alt="watari" src="https://github.com/user-attachments/assets/f5f0fb0d-ba39-48fc-b35e-43f9f672bc01" />
 
 <p align="center">
-    <a href="https://crates.io/crates/kyosabi"><img src="https://img.shields.io/crates/v/kyosabi.svg" alt="Crates info"></a>
-    <a href="LICENSE"><img src="https://img.shields.io/github/license/coko7/kyosabi?color=blue" alt="License: MIT"></a>
-    <img src="https://img.shields.io/github/languages/top/coko7/kyosabi?color=orange" alt="Rust">
-    <a href="https://github.com/coko7/kyosabi/actions/workflows/rust.yml"><img src="https://github.com/coko7/kyosabi/actions/workflows/rust.yml/badge.svg" alt="Tests"></a>
+    <a href="https://crates.io/crates/watari"><img src="https://img.shields.io/crates/v/watari.svg" alt="Crates info"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/github/license/coko7/watari?color=blue" alt="License: MIT"></a>
+    <img src="https://img.shields.io/github/languages/top/coko7/watari?color=orange" alt="Rust">
+    <a href="https://github.com/coko7/watari/actions/workflows/rust.yml"><img src="https://github.com/coko7/watari/actions/workflows/rust.yml/badge.svg" alt="Tests"></a>
 </p>
 
 > [!WARNING]
@@ -24,7 +22,7 @@ On top of providing a GUI, it comes with some additional features:
 
 All built with a ***based*** technical stack: [axum](https://github.com/tokio-rs/axum) + [Askama](https://github.com/askama-rs/askama) + [HTMX](https://htmx.org/) + [SQLite](https://sqlite.org)
 
-This project has been **vibe-scaffolded** with [Claude](https://claude.ai), you can find the full design here: [`kyosabi.md`](./kyosabi.md)
+This project has been **vibe-scaffolded** with [Claude](https://claude.ai), you can find the full design here: [`watari.md`](./watari.md)
 
 ## Running with Docker Compose (recommended)
 
@@ -50,7 +48,7 @@ export $(cat .env | xargs)  # or set the vars below directly
 cargo run
 ```
 
-Required environment variables (see `kyosabi.md` §5 for the full list with
+Required environment variables (see `watari.md` §5 for the full list with
 defaults): `OIDC_ISSUER_URL`, `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`,
 `OIDC_REDIRECT_URI`, `SESSION_SECRET`, `RUSTYPASTE_INTERNAL_URL`,
 `RUSTYPASTE_PUBLIC_URL`, `APP_BASE_URL`. A `token-bindings.yaml` must also

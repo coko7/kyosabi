@@ -21,7 +21,7 @@ struct DecryptTemplate {
     url: String,
 }
 
-/// `GET /decrypt?url=...` — intentionally unauthenticated (kyosabi.md §9.3) so
+/// `GET /decrypt?url=...` — intentionally unauthenticated (watari.md §9.3) so
 /// recipients without an SSO account can decrypt shared content. Renders the
 /// password prompt; actual bytes are fetched client-side from `/decrypt/fetch`.
 pub async fn page(
@@ -47,7 +47,7 @@ pub async fn page(
 }
 
 /// `GET /decrypt/fetch?url=...` — the actual SSRF-guarded proxy. This is a
-/// security boundary, not a convenience check (kyosabi.md, "Architecture
+/// security boundary, not a convenience check (watari.md, "Architecture
 /// invariants"): `url` must be prefixed by `RUSTYPASTE_PUBLIC_URL`, full stop.
 pub async fn fetch(State(state): State<AppState>, Query(query): Query<DecryptQuery>) -> Response {
     if !query.url.starts_with(&state.config.rustypaste_public_url) {

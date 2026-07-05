@@ -52,7 +52,7 @@ type DiscoveredProviderMetadata = ProviderMetadata<
 /// *not* storing the built `CoreClient` itself: oauth2 5.x's typestate-encoded
 /// endpoint markers make that type painful to name in a struct field, and
 /// rebuilding it from these plain values is just cheap struct construction
-/// (no I/O) — see kyosabi.md implementation notes.
+/// (no I/O) — see watari.md implementation notes.
 pub struct OidcContext {
     provider_metadata: DiscoveredProviderMetadata,
     client_id: ClientId,
@@ -162,7 +162,7 @@ pub async fn login(State(state): State<AppState>, jar: PrivateCookieJar) -> impl
         .add_scope(Scope::new("profile".to_string()))
         .add_scope(Scope::new("email".to_string()))
         // Most providers (Zitadel, Keycloak, Auth0, Okta) expose group/role
-        // membership under a "groups" scope by convention; kyosabi.md §6.2
+        // membership under a "groups" scope by convention; watari.md §6.2
         // calls for requesting a groups scope but doesn't name one since the
         // app is provider-agnostic.
         .add_scope(Scope::new("groups".to_string()))
@@ -332,7 +332,7 @@ fn decode_jwt_payload_unverified(compact: &str) -> anyhow::Result<serde_json::Va
     serde_json::from_slice(&bytes).context("JWT payload is not valid JSON")
 }
 
-/// Handles the two shapes kyosabi.md §14 anticipated: a flat JSON array of
+/// Handles the two shapes watari.md §14 anticipated: a flat JSON array of
 /// strings (most providers), or a JSON object whose top-level keys are the
 /// group/role names — e.g. Zitadel's `urn:zitadel:iam:org:project:roles`
 /// claim (`{"role-name": {"org-id": "org-name"}, ...}`).

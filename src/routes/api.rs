@@ -45,7 +45,7 @@ fn flash_err(message: impl Into<String>) -> Response {
 }
 
 /// Ciphertext produced by `static/app.js` always starts with the `RPEN`
-/// envelope magic (kyosabi.md §9.1) — self-describing, so the server doesn't
+/// envelope magic (watari.md §9.1) — self-describing, so the server doesn't
 /// need to trust a client-supplied "is this encrypted" flag.
 fn is_encrypted(bytes: &[u8]) -> bool {
     bytes.starts_with(b"RPEN")
@@ -96,7 +96,7 @@ async fn parse_multipart(mut multipart: Multipart) -> Result<ParsedUpload, AppEr
                 have_file = true;
             }
             "content" => {
-                // The "paste" form's textarea, wrapped as a file (kyosabi.md §8.3).
+                // The "paste" form's textarea, wrapped as a file (watari.md §8.3).
                 out.bytes = field.text().await.unwrap_or_default().into_bytes();
                 out.content_type = "text/plain; charset=utf-8".to_string();
                 have_file = true;
@@ -311,7 +311,7 @@ pub async fn shorten(
     // Plaintext case: rustypaste's `url`/`oneshot_url` fields shorten a real
     // URL. Encrypted case: the target URL is opaque ciphertext, which
     // rustypaste can't treat as a redirect target — app.js instead sends it
-    // as an encrypted *file* (kyosabi.md §9.1's ".enc" convention), so it's
+    // as an encrypted *file* (watari.md §9.1's ".enc" convention), so it's
     // handled exactly like an upload.
     if let Some(url) = parsed.url {
         let mode = if parsed.oneshot {
@@ -420,7 +420,7 @@ pub async fn delete_paste(
     }
 
     let _ = db::delete_upload_log(&state.db, &id).await;
-    // Empty 200 body: HTMX removes the row via hx-swap="outerHTML" (kyosabi.md §8.4).
+    // Empty 200 body: HTMX removes the row via hx-swap="outerHTML" (watari.md §8.4).
     StatusCode::OK.into_response()
 }
 

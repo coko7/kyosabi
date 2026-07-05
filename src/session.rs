@@ -11,10 +11,10 @@ use crate::state::AppState;
 
 pub const SESSION_COOKIE: &str = "session_id";
 pub const OIDC_STATE_COOKIE: &str = "__oidc_state";
-pub const OIDC_STATE_TTL_SECONDS: i64 = 600; // 10 minutes, per kyosabi.md §6.2
+pub const OIDC_STATE_TTL_SECONDS: i64 = 600; // 10 minutes, per watari.md §6.2
 
 /// What we stash in the short-lived, encrypted `__oidc_state` cookie while the
-/// user is off at the IdP mid-login (kyosabi.md §6.2).
+/// user is off at the IdP mid-login (watari.md §6.2).
 #[derive(Debug, Serialize, Deserialize)]
 pub struct OidcState {
     pub pkce_verifier: String,
@@ -70,7 +70,7 @@ pub fn clear_session_cookie(jar: CookieJar) -> CookieJar {
 }
 
 /// An authenticated user, extracted from the `session_id` cookie + a live
-/// SQLite session row (kyosabi.md §6.3). Unauthenticated or expired sessions
+/// SQLite session row (watari.md §6.3). Unauthenticated or expired sessions
 /// redirect to `/auth/login` rather than returning a bare 401, matching the
 /// spec's session middleware behavior.
 #[derive(Debug, Clone)]
@@ -115,7 +115,7 @@ impl FromRequestParts<AppState> for UserSession {
             return Err(RedirectToLogin);
         }
 
-        // Best-effort silent refresh (kyosabi.md §6.6). If it fails, the spec
+        // Best-effort silent refresh (watari.md §6.6). If it fails, the spec
         // calls for invalidating the session and sending the user to login.
         if let (Some(refresh_token), Some(access_expires_at)) = (
             row.oidc_refresh_token.as_deref(),

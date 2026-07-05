@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}KyoSabi{% endblock %}</title>
+    <title>{% block title %}Watari{% endblock %}</title>
     <meta name="csrf-token" content="{{ layout.csrf_token }}">
     <meta name="pbkdf2-iterations" content="{{ layout.pbkdf2_iterations }}">
     <link rel="stylesheet" href="/static/app.css">
@@ -12,7 +12,7 @@
   </head>
   <body hx-headers='{"X-CSRF-Token": "{{ layout.csrf_token }}"}'>
     <header class="topbar">
-      <a class="brand" href="/">KyoSabi</a>
+      <a class="brand" href="/">Watari</a>
       <nav>
         <a href="/">Dashboard</a>
         <a href="/upload">Upload</a>

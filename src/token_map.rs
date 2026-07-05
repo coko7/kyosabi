@@ -42,7 +42,7 @@ struct RawBindingEntry {
 /// A resolved rustypaste token: the actual secret value plus what our own
 /// UI/proxy allow attempting with it. This is *not* rustypaste's real
 /// enforcement — that lives in rustypaste's own `auth_tokens`/`delete_tokens`
-/// config (see kyosabi.md §7.2). A group can only be given a permission here
+/// config (see watari.md §7.2). A group can only be given a permission here
 /// if the underlying token is also actually configured that way on the
 /// rustypaste side.
 pub struct TokenBinding {
@@ -181,7 +181,7 @@ impl TokenMap {
         self.tokens.values()
     }
 
-    /// Read-only summary for `GET /admin/tokens` (kyosabi.md §8.3): which
+    /// Read-only summary for `GET /admin/tokens` (watari.md §8.3): which
     /// groups map to each token id, and what it's allowed to attempt. Never
     /// includes the token secret itself.
     pub fn bindings_view(&self) -> Vec<BindingView> {

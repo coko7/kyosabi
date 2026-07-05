@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```sh
 cargo build              # compile
-cargo run                # run (needs env vars — see README.md / kyosabi.md §5)
+cargo run                # run (needs env vars — see README.md / watari.md §5)
 cargo test                # unit tests (token binding resolution, rustypaste URL parsing, etc.)
 cargo test <name>         # run a single test, e.g. `cargo test first_match_wins`
 cargo clippy              # lint
@@ -14,11 +14,11 @@ cargo clippy              # lint
 
 There is no JS build step — `static/app.js` and `static/htmx.min.js` are served as-is.
 
-## What KyoSabi is
+## What Watari is
 
-KyoSabi is a Rust/Axum web GUI that sits in front of [rustypaste](https://github.com/orhun/rustypaste) (a minimal self-hosted pastebin/file-upload server that only exposes a bearer-token-secured HTTP API with no user concept). It adds per-user OIDC SSO, per-group token mapping, and optional client-side encryption, without modifying rustypaste itself.
+Watari is a Rust/Axum web GUI that sits in front of [rustypaste](https://github.com/orhun/rustypaste) (a minimal self-hosted pastebin/file-upload server that only exposes a bearer-token-secured HTTP API with no user concept). It adds per-user OIDC SSO, per-group token mapping, and optional client-side encryption, without modifying rustypaste itself.
 
-`kyosabi.md` is the original design spec and is still the source of truth for *intent*; this file documents how the actual implementation realizes (and in a few places, knowingly deviates from) it.
+`watari.md` is the original design spec and is still the source of truth for *intent*; this file documents how the actual implementation realizes (and in a few places, knowingly deviates from) it.
 
 ## Module map (`src/`)
 
@@ -34,7 +34,7 @@ KyoSabi is a Rust/Axum web GUI that sits in front of [rustypaste](https://github
 - `templates.rs` — `Tpl<T>`, a tiny `IntoResponse` wrapper around `askama::Template::render()` (replaces the `askama_axum` crate, which no longer exists as of askama ≥0.13), and `Layout`, the struct every page template embeds as a `layout: Layout` field for the data `base.html` needs (csrf token, pbkdf2 iterations, user email, admin flag).
 - `routes/` — `pages.rs` (dashboard/upload/paste/shorten form pages), `api.rs` (the mutating `/api/*` proxy endpoints + pagination), `decrypt.rs` (public, SSRF-guarded), `admin.rs` (token bindings viewer).
 
-## Known deviations from `kyosabi.md`
+## Known deviations from `watari.md`
 
 - No generic `config` crate / optional `config.yaml` override (§5) — plain `std::env::var` reads cover everything actually specified.
 - No `askama_axum` (removed upstream) — see `templates.rs::Tpl`.

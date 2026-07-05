@@ -1,17 +1,17 @@
-# Example rustypaste config for use with KyoSabi. Mount as
+# Example rustypaste config for use with Watari. Mount as
 # /app/config.toml:ro in the rustypaste container (see docker-compose.yml).
 #
 # rustypaste has no env-var interpolation in this file, so the values in
 # `auth_tokens`/`delete_tokens` below must be pasted in literally, and must
 # exactly match RUSTYPASTE_TOKEN_READONLY / RUSTYPASTE_TOKEN_ADMIN set on the
-# kyosabi service. This duplication is inherent to rustypaste's config model,
-# not something KyoSabi can remove.
+# watari service. This duplication is inherent to rustypaste's config model,
+# not something Watari can remove.
 #
 # See https://github.com/orhun/rustypaste/blob/master/config.toml for the
 # full set of options.
 
 [server]
-# Must bind on all interfaces to be reachable from the kyosabi container.
+# Must bind on all interfaces to be reachable from the watari container.
 address = "0.0.0.0:8000"
 max_content_length = "100MB"
 upload_path = "./upload"
@@ -19,11 +19,11 @@ timeout = "30s"
 expose_version = false
 expose_list = false
 
-# Both tokens must be listed here so kyosabi can authenticate requests with
+# Both tokens must be listed here so watari can authenticate requests with
 # either binding. Only the admin token is also a delete_token — this is what
-# actually enforces the `delete` permission kyosabi's token-bindings.yaml
-# grants to the "admin" binding (kyosabi.md §7.2: enforcement is soft on the
-# kyosabi side; rustypaste's own config is the hard boundary).
+# actually enforces the `delete` permission watari's token-bindings.yaml
+# grants to the "admin" binding (watari.md §7.2: enforcement is soft on the
+# watari side; rustypaste's own config is the hard boundary).
 auth_tokens = [
   "REPLACE_WITH_RUSTYPASTE_TOKEN_READONLY_VALUE",
   "REPLACE_WITH_RUSTYPASTE_TOKEN_ADMIN_VALUE",

@@ -10,7 +10,7 @@ use axum::routing::{delete, get, post};
 use crate::ratelimit;
 use crate::state::AppState;
 
-/// Public routes: no session required (kyosabi.md §9.3 — `/decrypt` is
+/// Public routes: no session required (watari.md §9.3 — `/decrypt` is
 /// intentionally reachable by recipients without an SSO account).
 pub fn public_router() -> Router<AppState> {
     Router::new()
@@ -18,7 +18,7 @@ pub fn public_router() -> Router<AppState> {
         .route("/decrypt/fetch", get(decrypt::fetch))
 }
 
-/// Session-guarded application routes (kyosabi.md §3's route table, minus
+/// Session-guarded application routes (watari.md §3's route table, minus
 /// `/auth/*` and `/decrypt`, which are public — see main.rs).
 pub fn router(max_body_bytes: usize) -> Router<AppState> {
     let mutating_api = Router::new()

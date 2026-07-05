@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.0
+
+Project renamed from **KyoSabi** to **Watari**. No functional changes to the app itself — this release is naming, docs, and CI groundwork.
+
+### Changed
+
+- 🏷️ **Renamed KyoSabi → Watari**, throughout the crate, Docker service/volume names, and all docs/comments (`kyosabi.md` → `watari.md`).
+- 📄 README rewrite: project description, badges (crates.io, license, top-language, CI), and WIP disclaimer.
+- 🎨 HTML templates reformatted to consistent 2-space indentation.
+
+### CI
+
+- ✅ Added GitHub Actions pipeline (`rust.yml`): build + test, clippy lints, and `cargo fmt --check` on push/PR to `main`.
+
 ## v0.1.0
 
 Initial release. Web GUI frontend for [rustypaste](https://github.com/orhun/rustypaste), adding SSO, per-group access control, and optional client-side encryption on top of rustypaste's bearer-token-only API.

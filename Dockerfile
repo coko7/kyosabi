@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY --from=builder /app/target/release/kyosabi /usr/local/bin/kyosabi
+COPY --from=builder /app/target/release/watari /usr/local/bin/watari
 COPY static ./static
 
 ENV DATABASE_PATH=/data/app.db
@@ -21,4 +21,4 @@ ENV APP_PORT=3000
 EXPOSE 3000
 VOLUME ["/data"]
 
-ENTRYPOINT ["kyosabi"]
+ENTRYPOINT ["watari"]

@@ -6,14 +6,14 @@ services:
       - rustypaste-data:/app/upload
       - ./rustypaste-config.toml:/app/config.toml:ro
     networks: [internal]
-    # No published ports — only reachable from kyosabi over the internal network.
+    # No published ports — only reachable from watari over the internal network.
 
-  kyosabi:
+  watari:
     build: .
     restart: unless-stopped
     environment:
       OIDC_ISSUER_URL: "https://your-idp.example.com"
-      OIDC_CLIENT_ID: "kyosabi"
+      OIDC_CLIENT_ID: "watari"
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET:?set in .env}"
       OIDC_REDIRECT_URI: "https://paste.example.com/auth/callback"
       OIDC_GROUPS_CLAIM: "groups"
@@ -28,7 +28,7 @@ services:
       TOKEN_BINDINGS_PATH: "/app/token-bindings.yaml"
       PBKDF2_ITERATIONS: "310000"
     volumes:
-      - kyosabi-data:/data
+      - watari-data:/data
       - ./token-bindings.yaml:/app/token-bindings.yaml:ro
     depends_on: [rustypaste]
     networks: [internal, public]
@@ -41,4 +41,4 @@ networks:
 
 volumes:
   rustypaste-data:
-  kyosabi-data:
+  watari-data:
