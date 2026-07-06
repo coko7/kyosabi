@@ -11,7 +11,11 @@
       hx-swap="innerHTML">
   <div class="field">
     <label for="file">File</label>
-    <input type="file" id="file" name="file" required>
+    <label id="dropzone" for="file" class="dropzone">
+      <input type="file" id="file" name="file" required>
+      <span class="dropzone-text">Drop a file here, or click to browse</span>
+      <span class="dropzone-file" id="dropzone-file" hidden></span>
+    </label>
   </div>
 
   <div class="field">

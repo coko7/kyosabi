@@ -57,6 +57,23 @@ fn humantime_expire(raw: &Option<String>) -> Option<String> {
         .filter(|s| !s.is_empty())
 }
 
+fn format_bytes(bytes: usize) -> String {
+    const UNITS: [&str; 4] = ["KB", "MB", "GB", "TB"];
+    if bytes < 1024 {
+        return format!("{bytes} B");
+    }
+    let mut value = bytes as f64 / 1024.0;
+    let mut unit = UNITS[0];
+    for candidate in &UNITS[1..] {
+        if value < 1024.0 {
+            break;
+        }
+        value /= 1024.0;
+        unit = candidate;
+    }
+    format!("{value:.1} {unit}")
+}
+
 struct ParsedUpload {
     bytes: Vec<u8>,
     content_type: String,
@@ -192,6 +209,7 @@ pub async fn upload(
         .or(parsed.file_name)
         .unwrap_or_else(|| "upload.bin".to_string());
     let encrypted = is_encrypted(&parsed.bytes);
+    let size = format_bytes(parsed.bytes.len());
     let mode = if parsed.oneshot {
         FileMode::OneShot
     } else {
@@ -221,7 +239,7 @@ pub async fn upload(
                 &parsed.expire,
             )
             .await;
-            flash_ok("Uploaded successfully.", url)
+            flash_ok(format!("Uploaded successfully ({size})."), url)
         }
         Err(e) => flash_err(upstream_message(e)),
     }

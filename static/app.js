@@ -14,6 +14,18 @@ function csrfToken() {
   return document.querySelector('meta[name="csrf-token"]')?.content ?? "";
 }
 
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  const units = ["KB", "MB", "GB", "TB"];
+  let value = bytes / 1024;
+  let i = 0;
+  while (value >= 1024 && i < units.length - 1) {
+    value /= 1024;
+    i += 1;
+  }
+  return `${value.toFixed(1)} ${units[i]}`;
+}
+
 async function deriveKey(password, salt, iterations, usages) {
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
@@ -70,6 +82,45 @@ document.addEventListener("click", (e) => {
   if (!btn) return;
   const text = btn.dataset.copy;
   if (text) navigator.clipboard?.writeText(text);
+});
+
+// --- Drag-and-drop file input (upload page) ---
+function updateDropzoneFile(dropzone) {
+  const input = dropzone.querySelector('input[type="file"]');
+  const label = dropzone.querySelector(".dropzone-file");
+  const file = input?.files?.[0];
+  if (!label) return;
+  if (file) {
+    label.textContent = `${file.name} (${formatBytes(file.size)})`;
+    label.hidden = false;
+  } else {
+    label.hidden = true;
+  }
+}
+
+document.querySelectorAll(".dropzone").forEach((dropzone) => {
+  const input = dropzone.querySelector('input[type="file"]');
+  input?.addEventListener("change", () => updateDropzoneFile(dropzone));
+
+  ["dragenter", "dragover"].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add("dropzone-active");
+    }),
+  );
+  ["dragleave", "dragend", "drop"].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("dropzone-active");
+    }),
+  );
+  dropzone.addEventListener("drop", (e) => {
+    const file = e.dataTransfer?.files?.[0];
+    if (file && input) {
+      input.files = e.dataTransfer.files;
+      updateDropzoneFile(dropzone);
+    }
+  });
 });
 
 // --- Reveal password fields when "password-protect" is checked ---
